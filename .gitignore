@@ -1,0 +1,5 @@
+# Archiv starých verzí — nezálohujeme, historii drží git
+_archiv/
+
+# macOS
+.DS_Store
