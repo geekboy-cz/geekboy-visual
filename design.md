@@ -4,7 +4,7 @@ description: >
   Použij při tvorbě jakéhokoli vizuálního výstupu GeekBoy — Remotion kompozice, web,
   aplikace, grafy, miniatury, statická grafika, merch. Kompletní systém — identita,
   loga, barvy, typografie, tvarosloví, pohyb i pravidla rozhodování.
-version: 2.1
+version: 2.2
 updated: 2026-07-27
 font: GeekBoy VF 1.003 · GeekBoy Display ExtraBold
 satelity: [motion.md, icons.md, charts.md]
@@ -496,7 +496,7 @@ atributem `data-theme="dark|light"`.
 | `--muted` | Gray 40 | Gray 50 | tlumený text |
 | `--accent` | Blue 50 | Blue 50 | CTA, odkazy, akcent |
 | `--accent-text` | Blue 40 | Blue 50 | akcentní popisky a odkazy v textu |
-| `--accent-dim` | Blue 90 | Blue 0 | tlumená plocha z akcentu — štítky, callouty |
+| `--accent-dim` | Blue 90 | Blue 0 | tlumená plocha z akcentu — callouty a zvýrazněné plochy, **ne štítky** |
 | `--link-hover` | Blue 40 | Blue 70 | odkaz při najetí |
 | `--good` / `--warn` / `--bad` | primary | primary | stavy |
 
@@ -603,6 +603,23 @@ odznak**. Odznak je jediné místo, kde smí být sytá barva jako výplň — j
 > Pravidlo: čím větší plocha, tím míň barvy. Sytá `#1148E6` pod celou kartou přebije
 > všechno okolo a zbytek kompozice ztratí hierarchii.
 
+### Odznak je plný, ne tlumený
+
+Tohle je druhá půlka téhož pravidla a plete se stejně často: **u odznaku a štítku pravidlo
+„míchej do podkladu" neplatí.** Malá pilulka s tlumenou plochou `--accent-dim` a textem
+v `--accent-text` je modrá na modré — nemá dost kontrastu, splývá a působí nedodělaně.
+Odznak se chová přesně naopak než velká plocha:
+
+| | Plocha (karta, callout, panel) | Odznak (pilulka, štítek) |
+|---|---|---|
+| **výplň** | 8–18 % barvy do podkladu, nebo tmavá varianta odstínu | **sytá** `--accent`, resp. `primary` |
+| **text** | `--accent-text`, resp. `primary` | **bílý** (u stavové barvy `plocha · dark`) |
+| **rámeček** | 40–50 % barvy v `--border` | žádný, plná výplň stačí |
+
+Odznak snese sytou barvu právě proto, že je **malý** — zabere pár desítek čtverečních
+pixelů, takže hierarchii nepřebije, zato je okamžitě čitelný. Provedení: pilulka,
+0,71× / Bold 700 / VERZÁLKY / tracking +0,09 em, vnitřní okraj zhruba 3 × 11 px.
+
 ### Zaoblení
 
 Vychází ze zaobleného čtverce (kapitola 3), konkrétní hodnoty pro web:
@@ -696,6 +713,8 @@ a pozná se to na první pohled.
   **Pozor, graf je výjimka:** na webu je vymezená plocha grafu správně, viz kapitola 15.
 - Stejná silueta všech sekcí — pak žádná nic neznamená.
 - Řada stejně velkých metrik, když je ve skutečnosti důležitá jen jedna.
+- **Vytažený hlavní údaj vedle nadpisu grafu**, který opakuje hodnotu z grafu nebo
+  z odstavce vedle. Hlavička grafu je jen titulek a podtitulek (kapitola 15).
 - Sekce, které se jmenují podle žánru („Úvod", „Závěr", „Shrnutí") místo podle toho,
   co se v nich stalo.
 - Opakovaný souhrn, který říká totéž co tabulka nad ním.
@@ -703,6 +722,8 @@ a pozná se to na první pohled.
 **Ozdoby**
 
 - Štítek nebo pilulka na běžná metadata — datum, kategorie, autor. Štítek je pro **stav**.
+- **Odznak s tlumenou plochou a textem téže barvy** — modrá na modré. Odznak je plný,
+  text bílý (kapitola 9).
 - Ikona v barevné dlaždici bez funkce. Ikony různých stylů vedle sebe. Emoji místo ikony.
 - Stock fotky, generované ilustrace, abstraktní tvary, falešné screenshoty.
 - Hero obrázek jen proto, že sekce „musí něco mít".
@@ -711,7 +732,8 @@ a pozná se to na první pohled.
 **Data**
 
 - Graf jako dekorace. Bar použitý jako oddělovač.
-- Legenda tam, kde stačí přímý popisek u křivky.
+- Legenda u sloupců a ploch, kde stačí popisek přímo u tvaru. **A obráceně: spojnicový
+  graf bez legendy, s popisky naházenými do datové plochy.**
 - Sloupce jen proto, že existují čísla — když by stačila věta nebo tabulka.
 - Drobný šedý text jen proto, aby se obsah vešel.
 
@@ -853,7 +875,8 @@ Pravidla, která platí vždy:
    vzdálenost od hranice. Teprve pak vyber typ grafu. Nesahej po sloupcích jen proto,
    že existují čísla.
 2. **Tabulková čísla** (`tnum`) všude, kde se hodnoty porovnávají nebo animují.
-3. **Přímé popisky místo legendy**, kdykoli to jde.
+3. **Popisek podle tvaru řady** — u barů, ploch a siluet přímý popisek u tvaru;
+   u spojnicových grafů (křivky, referenční čáry) **legenda** pod grafem.
 4. **Bary jsou rovné.** Sloupce a pruhy nezaobluj — ostré hrany působí nadčasově
    a zaoblený konec opticky zkracuje délku, tedy to jediné, co bar kóduje.
 5. **Zaoblený čtvereček** je koncový bod datové křivky a klíč v legendě. Výchozí barva
@@ -876,20 +899,29 @@ platí pro kompozice, ne pro web.
 Čtenář podle něj graf pozná i po roce a v jiné recenzi.
 
 **Závěr do titulku nepatří.** „Nad 82 % ve všech scénářích" je zjištění — a to má vlastní
-místa: **podtitulek** pod nadpisem, **hlavní údaj vpravo** v hlavičce, nebo věta v textu.
+místa: **podtitulek** pod nadpisem, nebo věta v odstavci kolem grafu.
 Kdyby závěr nesl titulek, každá recenze by měla graf jinak pojmenovaný a nešly by
 porovnat.
 
-### Dvě rozvržení hlavičky
+### Jedno rozvržení hlavičky
 
-| Rozvržení | Kdy | Provedení |
-|---|---|---|
-| **Na střed** | graf nemá nic než sebe — sada barů, jeden koláč | titulek Display verzálkami na střed, pod ním podtitulek na střed, pod tím data |
-| **Vlevo + hlavní údaj vpravo** | z grafu se vytahuje jedno klíčové číslo — peak, průměr, celkem | titulek a podtitulek vlevo, vpravo zarovnaný nahoru **hlavní údaj** (Display, velký) a pod ním jeho popisek verzálkami |
+**Titulek a podtitulek na střed.** Titulek Display verzálkami, pod ním podtitulek
+v `--muted`, pod tím data. Platí pro všechny grafy, žádná druhá varianta.
 
-Druhé rozvržení použij, jakmile má graf „to jedno číslo, kvůli kterému tam je" —
-divák ho pak přečte, aniž by musel luštit křivku. Míchat obojí v jednom výstupu je
-v pořádku; řídí se to obsahem grafu, ne konzistencí layoutu.
+Když má graf „to jedno číslo, kvůli kterému tam je", řekni ho v **podtitulku** nebo
+v odstavci kolem grafu — ne jako vytažený údaj vedle titulku.
+
+> **Zrušené rozvržení „vlevo + hlavní údaj vpravo".** Verze 2.1 ho nabízela jako druhou
+> variantu. Praxe ukázala, že se přidělává i tam, kde není potřeba, a vznikají zbytečné
+> dvojice typu *„85,5 % / PRŮMĚR NAPŘÍČ SCÉNÁŘI"* nad grafem, který tutéž hodnotu sám
+> ukazuje. **Vytažené číslo a další varianty hlavičky přijdou jako hotová šablona** —
+> do té doby jedna podoba pro všechno.
+
+### Legenda patří ke křivkám
+
+U barů, ploch a siluet popisuj **přímo u tvaru**. U **spojnicových grafů** (křivky,
+referenční čáry přes celou šířku) dělej **legendu pod grafem** — křivka nemá kam popisek
+pověsit a text posazený vedle čáry leží v datové ploše. Tvar a rozměry klíče v `charts.md`.
 
 Další pravidla — barevné kódování řad, škály, markery, osy — jsou v `charts.md`.
 
@@ -943,7 +975,7 @@ Konkrétní role pro web, ze kterého systém vznikl. Velikost je **× základ**
 | Citace — zdroj | 0,76 | 700 | | +0,04 em | VERZÁLKY, `--accent-text` |
 | Nav | 0,88 | 400 | | — | `--muted`, aktivní `--accent-text` |
 | Breadcrumb | 0,76 | 400 | | +0,02 em | `--muted` |
-| Štítek | 0,71 | 700 | | +0,06 em | VERZÁLKY, plocha `--accent-dim` |
+| Štítek / odznak | 0,71 | 700 | | +0,09 em | VERZÁLKY, plná plocha `--accent`, text bílý |
 | Meta | 0,82 | 400 | | — | hodnota 700 |
 | Tlačítko | 0,88 | 700 | | — | plocha `--accent` |
 | Cena | 1,41 | 700 | | −0,02 em | dovětek 0,80× |
@@ -972,7 +1004,7 @@ Jak vypadají konkrétní stavební prvky. Hodnoty jsou webové, mimo web ber po
 
 | Komponenta | Provedení |
 |---|---|
-| **Štítek** | pilulka, plocha `--accent-dim`, rámeček z akcentu, text verzálkami |
+| **Štítek / odznak** | pilulka, **plná** plocha `--accent`, **bílý** text verzálkami — viz kapitola 9 |
 | **Callout** | diagonální přechod z akcentu, titulek Bold |
 | **Citace** | levá linka 3 px v `--accent`, zúžený kurzívní řez |
 | **Tabulka** | záhlaví verzálkami v `--accent-text`, řádky oddělené `--border`, hodnoty `tnum` |

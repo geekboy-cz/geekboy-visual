@@ -4,7 +4,7 @@ description: >
   Použij, když děláš graf, datovou scénu nebo tabulku měření — v Remotionu, na webu
   i ve statické grafice. Obsahuje kódování dat, tvarosloví, barevné řady, osy, popisky
   a markery.
-version: 1.0
+version: 1.1
 updated: 2026-07-27
 status: rozpracované
 ---
@@ -85,13 +85,18 @@ data. Plocha je funkční předěl, ne dekorace.
 | Vrstva | Hodnota |
 |---|---|
 | podklad | `--chart-bg` — v dark Gray 100, v light bílá |
-| rámeček | 1 px `--chart-border` — v dark Gray 90, v light Gray 20 |
+| rámeček | 1 px `--chart-border` — v dark Gray 80, v light Gray 20 |
 | zaoblení | 16 px |
 | vnitřní okraj | ~34 px svisle, `clamp(22px, 3.5vw, 40px)` vodorovně |
 
 Zaoblení 16 px je **vědomá výjimka z tabulky zaoblení** v `design.md` kapitole 9
 (karty 12 px) — plocha grafu je větší než karta a při 12 px působí těsně. Nic jiného
 na stránce 16 px nemá.
+
+⚠️ **Rámeček v dark je Gray 80, ne Gray 90.** `--chart-bg` je Gray 100, což je přesně
+pozadí stránky — plochu tedy nedělá podklad, ale linka. Na Gray 90 by měla kontrast
+1,1 : 1 a graf by splynul s textem, tedy přesně to, čemu má plocha zabránit. Gray 80 je
+tatáž linka, jakou používá `--border` na zbytku stránky.
 
 **Co pořád platí:** ne rámeček plus stín plus zaoblení najednou — podklad a linka, tím to
 končí. A **karta uvnitř plochy grafu už je karta v kartě**: dlaždice, souboje a KPI uvnitř
@@ -105,12 +110,8 @@ ne na web.
 
 ## 2b. Rozvržení hlavičky
 
-Hlavička grafu má dvě podoby a **vybírá se podle obsahu, ne podle vzhledu stránky.**
-
-### Na střed — když graf nemá nic než sebe
-
-Sada barů, jeden koláč, jedna škála. Titulek Display verzálkami na střed, pod ním
-podtitulek `--muted` na střed, pod tím data.
+**Hlavička grafu má jednu podobu: titulek a podtitulek na střed.** Titulek Display
+verzálkami, pod ním podtitulek `--muted`, pod tím data. Platí pro všechny grafy.
 
 ```
               HUSTOTA ENERGIE NA KILOGRAM
@@ -119,22 +120,14 @@ podtitulek `--muted` na střed, pod tím data.
    [ bary ]
 ```
 
-### Vlevo + hlavní údaj vpravo — když se z grafu vytahuje číslo
+**Titulek je jméno testu, závěr patří do podtitulku** (kapitola 5). Když má graf „to
+jedno číslo, kvůli kterému tam je", řekni ho v podtitulku nebo v odstavci kolem grafu.
 
-Peak, průměr, celkem, doba do prahu. Titulek a podtitulek vlevo, vpravo zarovnaný
-nahoru **hlavní údaj** (Display, `clamp(26px, 3.4vw, 34px)`) a pod ním popisek
-verzálkami v `--muted`.
-
-```
-   NÁBĚH TEPLOTY V ČASE                        86,3 °C
-   Zátěžový test 35 W · hot spot · 22 °C   MAXIMUM PO 60 MIN
-   ────────────────────────────────────────────────────
-   [ křivka ]
-```
-
-Jakmile má graf „to jedno číslo, kvůli kterému tam je", patří do hlavičky vpravo —
-divák ho přečte, aniž by musel luštit křivku. **Míchat obě rozvržení v jednom výstupu
-je v pořádku**; řídí se to obsahem grafu, ne konzistencí layoutu.
+> **Nevyráběj hlavní údaj vpravo.** Verze 2.1 nabízela druhé rozvržení — titulek vlevo
+> a vytažené číslo vpravo. V praxi ho generátor přidělával i tam, kde nebylo potřeba,
+> a vznikaly zbytečné dvojice typu *„85,5 % / PRŮMĚR NAPŘÍČ SCÉNÁŘI"* nad grafem, který
+> tutéž hodnotu ukazuje. Zrušeno. **Vytažené číslo, KPI pruh a další varianty hlavičky
+> přijdou jako hotová šablona** — do té doby jedna podoba pro všechno.
 
 ---
 
@@ -177,7 +170,8 @@ Stavové barvy do řad nemíchej — ty označují stav, ne identitu řady.
 ### Význam nikdy jen barvou
 
 Doplň tvarem, popiskem nebo ikonou, ať graf funguje i černobíle a pro barvoslepé.
-U dvou řad to řeší přímý popisek u křivky, u sloupců hodnota nad sloupcem.
+U sloupců to řeší hodnota nad sloupcem, u křivek **legenda a odlišný rytmus čáry** —
+plná proti přerušované. Dvě řady rozlišené jen barvou jsou chyba.
 
 ---
 
@@ -197,7 +191,8 @@ U dvou řad to řeší přímý popisek u křivky, u sloupců hodnota nad sloupc
 
 ## 5. Popisky a čísla
 
-- **Přímý popisek místo legendy**, kdykoli to jde. Legenda nutí oči skákat sem a tam.
+- **Popisek podle tvaru řady** — u barů a ploch přímo u tvaru, u křivek legenda pod grafem
+  (viz *Legenda* níž).
 - **Nechej popiskům místo.** Žádná křivka, čára ani anotace nesmí procházet přes text.
 - **Tabulková čísla** (`tnum`) všude, kde se hodnoty porovnávají nebo animují —
   jinak čísla poskakují.
@@ -206,13 +201,19 @@ U dvou řad to řeší přímý popisek u křivky, u sloupců hodnota nad sloupc
 
 ### Legenda
 
-Přímý popisek je výchozí volba, ale **legenda není chyba** — je správná tam, kde se řada
-popsat na místě nedá:
+Rozhoduje **tvar řady**, ne osobní vkus:
 
-- **referenční čára přes celou šířku** (udávaný limit, práh, průměr třídy) — nemá „místo",
-  kam popisek pověsit
-- **tři a víc řad**, kde by se přímé popisky trefovaly do sebe
-- **řada, která se dotýká jiné** a popisek by musel přeskakovat přes data
+| Typ grafu | Výchozí volba |
+|---|---|
+| **bary, pruhy, koláč, siluety, dlaždice** | **přímý popisek** — hodnota patří ke svému tvaru a je kam ji napsat |
+| **spojnicový graf — křivky a čáry** | **legenda pod grafem** |
+
+**U spojnicových grafů legendu dělej.** Křivka nemá „místo", kam popisek pověsit: text
+posazený vedle čáry leží v datové ploše, při jiné šířce se posune do křivky a u dvou
+blízkých řad se popisky trefují do sebe. Zvlášť to platí pro **referenční čáru přes celou
+šířku** (udávaný limit, práh, průměr třídy) — ta žádné místo nemá z principu.
+
+Přímý popisek u křivky nech jen tam, kde je řada **jediná** a text má prokazatelně kam.
 
 Když se legenda použije, má být **tichá** — je to klíč, ne obsah. Nejčastější chyba je,
 že klíč přebije data, která popisuje.
@@ -249,7 +250,6 @@ pozná i v jiné recenzi a o rok později.
 | Kam se závěr dá | Jak |
 |---|---|
 | **podtitulek** | jedna věta pod nadpisem, `--muted` |
-| **hlavní údaj vpravo** | číslo v hlavičce, viz kapitola 2b |
 | **text kolem grafu** | odstavec, který graf uvozuje nebo shrnuje |
 
 Kdyby závěr nesl titulek, měla by každá recenze stejný graf pojmenovaný jinak a nešly by

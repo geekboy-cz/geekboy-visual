@@ -5,6 +5,38 @@ Historie designového systému GeekBoy. Verze odpovídá poli `version` v hlavi�
 
 ---
 
+## 2.2 — 27. 7. 2026
+
+Vzniklo z převodu recenze nabíječky na 2.1. Všechny tři změny jsou **zpětné kroky** —
+2.1 přidala volnost, kterou generátor zneužil k přidělávání prvků navíc.
+
+**Opraveno**
+
+- **Rozvržení hlavičky grafu — zpátky na jedno.** 2.1 zavedla druhou variantu *„vlevo
+  + hlavní údaj vpravo"*. V praxi se přidělávala i tam, kde nebyla potřeba, a vyráběla
+  zbytečné dvojice typu *„85,5 % / PRŮMĚR NAPŘÍČ SCÉNÁŘI"* nad grafem, který tutéž
+  hodnotu sám ukazuje. **Platí jedna podoba: titulek a podtitulek na střed.** Vytažené
+  číslo a další varianty přijdou jako hotová šablona.
+- **Legenda u spojnicových grafů je výchozí, ne výjimka.** Pravidlo *„přímý popisek
+  místo legendy, kdykoli to jde"* platilo plošně, takže z grafů s křivkami legendy
+  zmizely úplně a popisky skončily naházené v datové ploše. Nově rozhoduje **tvar
+  řady**: bary, plochy a siluety popisek u tvaru — **křivky a referenční čáry legendu**.
+- **Odznak je plný, ne tlumený.** Příloha A předepisovala u štítku plochu `--accent-dim`
+  s textem v `--accent-text`, tedy modrou na modré — nemá kontrast a splývá. Odznak má
+  **sytou výplň `--accent` a bílý text** (referenční provedení *Druhé místo* z Jirkovy
+  palety). Doplněna kapitola *Odznak je plný, ne tlumený* do kapitoly 9, která staví
+  odznak proti velké ploše: čím menší prvek, tím sytější barva.
+  `--accent-dim` zůstává pro callouty a zvýrazněné plochy.
+- **Rámeček plochy grafu v dark z Gray 90 na Gray 80.** `--chart-bg` je Gray 100, což je
+  přesně pozadí stránky — na Gray 90 měla linka kontrast 1,1 : 1 a graf splýval s textem,
+  tedy přesně to, čemu má plocha zabránit. Otevřený bod z revize 2.1, teď uzavřený.
+
+**Doplněno do *Takhle to nedělej***
+
+- Odznak s tlumenou plochou a textem téže barvy.
+- Vytažený hlavní údaj vedle nadpisu grafu, který opakuje hodnotu z grafu.
+- Spojnicový graf bez legendy s popisky v datové ploše.
+
 ## 2.1 — 27. 7. 2026
 
 Vzniklo z převodu reálné recenze na verzi 2.0. Většinu doplňků vynutila Jirkova ukázka
