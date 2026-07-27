@@ -4,8 +4,8 @@ description: >
   Použij při tvorbě jakéhokoli vizuálního výstupu GeekBoy — Remotion kompozice, web,
   aplikace, grafy, miniatury, statická grafika, merch. Kompletní systém — identita,
   loga, barvy, typografie, tvarosloví, pohyb i pravidla rozhodování.
-version: 2.0
-updated: 2026-07-26
+version: 2.1
+updated: 2026-07-27
 font: GeekBoy VF 1.003 · GeekBoy Display ExtraBold
 satelity: [motion.md, icons.md, charts.md]
 ---
@@ -369,13 +369,31 @@ Používáme ji jen tehdy, když pomáhá lépe pochopit informaci, zvýraznit a
 jasnou vizuální hierarchii. **Pokud stejného výsledku dosáhneš typografií nebo prostorem,
 další barvu nepřidávej.** Hierarchii stavěj nejdřív typografií, teprve potom plochou a barvou.
 
-Barva označuje **stav nebo naměřenou skutečnost**, ne náladu:
+### Kdy smí číslo dostat stavovou barvu
 
-- ✅ *Ověřeno* → zelená. To je stav.
-- ❌ *Doporučený produkt* → **nemusí být zelený.** To je náš názor, ne stav.
+Rozhoduje jediná otázka: **existuje práh nebo referenční hodnota, vůči které to čteme?**
+Když ano, barva nese informaci a patří tam. Když ne, je to dekorace.
 
-Nedělej něco zeleným jen proto, že je to příznivé — úspora, delší výdrž nebo lepší cena
-nejsou „success". Jsou to čísla a mluví sama.
+**Obarvit smíš:**
+
+| Případ | Příklad |
+|---|---|
+| **hodnota vůči prahu nebo limitu** | 86 °C proti prahu 85 °C → červená · 74 °C v pásmu 70–85 °C → oranžová |
+| **měření vůči deklaraci výrobce** | vypne až 23 % nad udávaným limitem → zelená · rozměry mimo toleranci → červená |
+| **směr změny** | zlevnění → zelená · zdražení → červená · vyšší výkon proti minulé generaci → zelená |
+| **ověřeno / neověřeno / chybí** | podporované protokoly |
+
+**Neobarvuj:**
+
+- **prostou velikost na škále.** Delší sloupec není „success", je jen delší. Vyšší hustota
+  výkonu bez srovnání s třídou je číslo, ne stav.
+- **náš verdikt.** *Doporučený produkt* nebo *skóre 9,0* je názor. Ten patří brand akcentu
+  nebo neutrálu, ne zelené — zelená by z hodnocení dělala měření.
+- **rozdíl bez referenčního bodu.** „O 17 % větší než Anker" je fakt, ne stav; menší ani
+  větší tady není lepší.
+
+Test: **kdyby barva zmizela, přišel bys o informaci, nebo jen o důraz?** Když o důraz,
+patří tam typografie, ne barva.
 
 **GeekBoy Blue je jediná identifikační barva značky. Nikdy nezaváděj druhou podobnou modrou.**
 
@@ -427,6 +445,36 @@ spíš tmavou variantu, sytou nech na výplně a bary.
 
 **Význam nikdy nenes jen barvou.** Doplň ho tvarem, ikonou nebo popiskem, ať to funguje
 i černobíle a pro barvoslepé.
+
+### Jak stavovou barvu složit
+
+Tohle je nejčastější místo, kde stavová barva zaskřípe: sytá `primary` se použije jako
+velká plocha a výsledek křičí. **Sytá barva patří na malé plochy a na text, ne pod odstavec.**
+
+Recept — v dark režimu, v light se prohodí `plocha · dark` za `plocha · light`:
+
+| Vrstva | Čím |
+|---|---|
+| **plocha** | `plocha · dark` (např. `#061912` u zelené) — tmavá varianta téhož odstínu |
+| **text a číslo** | `primary` |
+| **tečka, lišta, ikona** | `primary` |
+| **rámeček** | 40–50 % `primary` smíchaných s běžným `--border` |
+| **plný odznak** | `primary` jako výplň, text v `plocha · dark` — jen na malý štítek |
+
+Klíč je, že **plocha je tmavá varianta stejného odstínu**, ne neutrální `--surface`
+s barevným rámečkem. Zelený stav na tmavě zeleném podkladu se čte jako celek; zelený
+rámeček kolem šedé plochy se rozpadá na dva prvky.
+
+### Dva tvary stavu — s plochou a bez ní
+
+| Tvar | Kdy | Provedení |
+|---|---|---|
+| **Stavová plocha** | samostatný prvek, který má být vidět zvlášť — spec karta, chip v souhrnu, callout | plocha · dark + `primary` text + lišta nebo tečka |
+| **Inline stav** | hustý kontext, kde by plochy vytvořily šachovnici — řádky tabulky, seznamy, legendy | **žádná plocha**: text v `primary` řezem Bold + tečka v `primary` s jemným prstencem v `plocha · dark` |
+
+Inline tvar drží, protože barvu nese **tučný text**, ne plocha — v tenkém řezu by to
+nefungovalo. A neutrální stav (*offline*, *neměřeno*, *nemáme data*) se v obou tvarech
+kreslí `--muted`, ne červeně. **Chybějící údaj není chyba produktu.**
 
 ### Světlý a tmavý režim
 
@@ -539,6 +587,22 @@ radši
 
 Stránka je normálně jedna souvislá plocha. Karty v kartách nedělej.
 
+### Barevná plocha se míchá do podkladu
+
+Platí pro brand modrou stejně jako pro stavové barvy: **`primary` není podklad.**
+Když má plocha nést barvu — vítěz v souboji, vybraná varianta, zvýrazněný řádek —
+nesahej po syté barvě, ale po jedné z těchto dvou možností:
+
+- **8–18 % barvy smíchaných do podkladu**, na kterém plocha leží
+- **tmavá varianta odstínu** (`plocha · dark`, u modré Blue 90 `#000B54`)
+
+Identitu plochy pak dotáhne **rámeček** (40–50 % barvy smíchaných s `--border`),
+**barevný nadpis nebo číslo** (`--accent-text`, resp. `primary`) a případně **malý plný
+odznak**. Odznak je jediné místo, kde smí být sytá barva jako výplň — je malý a nese text.
+
+> Pravidlo: čím větší plocha, tím míň barvy. Sytá `#1148E6` pod celou kartou přebije
+> všechno okolo a zbytek kompozice ztratí hierarchii.
+
 ### Zaoblení
 
 Vychází ze zaobleného čtverce (kapitola 3), konkrétní hodnoty pro web:
@@ -553,24 +617,56 @@ Vychází ze zaobleného čtverce (kapitola 3), konkrétní hodnoty pro web:
 
 Mimo web nejde o pixely, ale o **poměr zaoblení k velikosti prvku**.
 
-### Výjimka — sémantické spec karty jsou hranaté
+### Záznam, nebo měření? — spec karta vs. datová dlaždice
 
-Karty, které nesou **naměřený parametr se stavem** — podporované protokoly, výsledky
-dílčích testů, seznam specifikací — děláme **bez zaoblení, s ostrými rohy**:
+Obojí nese stavovou barvu a obojí vypadá v návrhu podobně, ale jsou to **dvě různé
+komponenty a pletou se nejčastěji ze všeho.** Rozhodni jedinou otázkou:
 
+> **Čtou se položky proti sobě, nebo každá zvlášť?**
+
+| | **Spec karta** (hranatá) | **Datová dlaždice** (zaoblená 12 px) |
+|---|---|---|
+| Položky jsou | různorodé — každá o něčem jiném | **táž veličina** změřená na víc místech |
+| Hodnota je | stav nebo text — *ověřeno*, *chybí*, `5/9/12 V` | **číslo na společné škále** — 86,3 °C · 74,0 °C |
+| Barva kóduje | diskrétní stav | **pásmo na škále** |
+| Čtou se | jedna po druhé, jako položky seznamu | **všechny naráz, jako rozložení** |
+| Sousedství | nic neznamená, pořadí je libovolné | **je to informace** — kde je nejtepleji |
+| Charakter | záznam v protokolu | mikro-graf |
+
+**Spec karta = záznam.** Podporované protokoly, výsledky dílčích testů, klady a zápory,
+poznámka z labu. Provedení:
+
+- **bez zaoblení, ostré rohy**
 - **plocha** = tlumená stavová plocha (`plocha · dark`, resp. `plocha · light`)
 - **levá lišta 3 px** v syté barvě stavu — ověřeno, výstraha, chybí
 - **verzálkový popisek** nahoře vlevo, **štítek** vpravo (ten zaoblený zůstává)
 - **hodnota** pod tím, Bold, případně s tabulkovými čísly
 - skládají se do mřížky; položka, která je zásadní, může zabrat celou šířku
 
-**Proč hranaté:** čtou se jako **záznam v protokolu**, ne jako plovoucí karta v rozhraní.
+*Proč hranaté:* čtou se jako **záznam v protokolu**, ne jako plovoucí karta v rozhraní.
 Ostré hrany na sebe v mřížce navazují a drží tabulkový dojem — zaoblení by z měření udělalo
-UI komponentu a oslabilo dojem, že jde o data. Identifikaci obstará barevná lišta,
-zaoblení k tomu není potřeba.
+UI komponentu. Identifikaci obstará barevná lišta.
 
-Používáme je například u seznamu podporovaných rychlonabíjecích protokolů
-v recenzích nabíječek.
+**Datová dlaždice = měření na společné škále.** Teploty po zónách, spotřeba v režimech,
+hodnoty téhož parametru napříč scénáři. Provedení:
+
+- **zaoblení 12 px** jako běžná karta
+- **plocha** = tlumená stavová plocha podle pásma, **rámeček** 40 % barvy stavu
+- **číslo velké a na střed** (Display, `tnum`), pod ním popisek verzálkami v `--muted`
+- pásma vysvětli jednou větou nad mřížkou — *„zelená do 70 °C, oranžová 70–85, červená nad"*
+
+*Proč zaoblené:* nejsou to záznamy, ale **body jednoho měření**. Zaoblení je od sebe
+odděluje jako samostatné hodnoty a mřížka pak čte jako sada výsledků, ne jako protokol.
+
+**Nemíchej oba tvary v jednom výstupu pro tutéž roli.** Když jsou protokoly hranaté
+a teplotní zóny zaoblené, je to správně — nesou různé věci. Když je hranaté všechno,
+stránka se slije do jednoho protokolu a ztratí se, co je záznam a co měření.
+
+> **A ještě jedna možnost: nemá to být rovnou graf?** Jakmile je položek pět a víc a jsou
+> to čísla na společné škále, platí *geometrie před komponentou* (kapitola 15) — délka na
+> společné škále ukáže rozložení líp než mřížka dlaždic, ve které musí oko porovnávat
+> čísla. Dlaždice zvol, když jsou hodnoty **vázané na místo nebo režim**, který se nedá
+> seřadit; graf, když se seřadit dá.
 
 ### Prostor
 
@@ -596,7 +692,8 @@ a pozná se to na první pohled.
 
 - Centrovaný hero s obecným textem a pod ním mřížka stejně velkých karet.
 - Karta uvnitř karty. Rámeček jako náhrada za slabou hierarchii.
-- Tmavý zaoblený obdélník kolem každého grafu.
+- Zaoblený obdélník kolem každého bloku bez rozdílu — i tam, kde nic neseskupuje.
+  **Pozor, graf je výjimka:** na webu je vymezená plocha grafu správně, viz kapitola 15.
 - Stejná silueta všech sekcí — pak žádná nic neznamená.
 - Řada stejně velkých metrik, když je ve skutečnosti důležitá jen jedna.
 - Sekce, které se jmenují podle žánru („Úvod", „Závěr", „Shrnutí") místo podle toho,
@@ -749,7 +846,7 @@ U fotky, která slouží jako důkaz, uveď podmínky — čím a za jakých oko
 
 ## 15. Grafy a data → `charts.md`
 
-Tři pravidla, která platí vždy:
+Pravidla, která platí vždy:
 
 1. **Geometrie před komponentou.** Nejdřív zvol vizuální proměnnou — velikost a pořadí →
    délka na společné škále, vývoj v čase → vodorovné pořadí, podíl → proporce, práh →
@@ -761,6 +858,38 @@ Tři pravidla, která platí vždy:
    a zaoblený konec opticky zkracuje délku, tedy to jediné, co bar kóduje.
 5. **Zaoblený čtvereček** je koncový bod datové křivky a klíč v legendě. Výchozí barva
    je brand `#1148E6`; v barevně kódovaném grafu ale nese **barvu své řady**.
+
+### Graf na webu má vlastní plochu
+
+**Na webu a v aplikacích graf stojí na vymezené ploše** — jemně odlišený podklad, 1px
+rámeček, zaoblení kolem 16 px. Není to karta pro parádu: stránka recenze střídá odstavce,
+tabulky a grafy, a bez vymezení splyne graf s textem. Plocha říká „tady se čtou data".
+
+**Ve videu a ve statické grafice plocha nepatří** — kompozice je celá jedna scéna a rámeček
+kolem grafu je tam navíc. To je ten reflex ze seznamu *Takhle to nedělej* (kapitola 10);
+platí pro kompozice, ne pro web.
+
+### Titulek grafu je jméno testu, ne závěr
+
+**Titulek pojmenovává, co se měří — a drží se napříč všemi recenzemi stejný.**
+„Účinnost podle scénáře", „Náběh teploty v čase", „Hustota energie na kilogram".
+Čtenář podle něj graf pozná i po roce a v jiné recenzi.
+
+**Závěr do titulku nepatří.** „Nad 82 % ve všech scénářích" je zjištění — a to má vlastní
+místa: **podtitulek** pod nadpisem, **hlavní údaj vpravo** v hlavičce, nebo věta v textu.
+Kdyby závěr nesl titulek, každá recenze by měla graf jinak pojmenovaný a nešly by
+porovnat.
+
+### Dvě rozvržení hlavičky
+
+| Rozvržení | Kdy | Provedení |
+|---|---|---|
+| **Na střed** | graf nemá nic než sebe — sada barů, jeden koláč | titulek Display verzálkami na střed, pod ním podtitulek na střed, pod tím data |
+| **Vlevo + hlavní údaj vpravo** | z grafu se vytahuje jedno klíčové číslo — peak, průměr, celkem | titulek a podtitulek vlevo, vpravo zarovnaný nahoru **hlavní údaj** (Display, velký) a pod ním jeho popisek verzálkami |
+
+Druhé rozvržení použij, jakmile má graf „to jedno číslo, kvůli kterému tam je" —
+divák ho pak přečte, aniž by musel luštit křivku. Míchat obojí v jednom výstupu je
+v pořádku; řídí se to obsahem grafu, ne konzistencí layoutu.
 
 Další pravidla — barevné kódování řad, škály, markery, osy — jsou v `charts.md`.
 
