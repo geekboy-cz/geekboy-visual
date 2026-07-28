@@ -4,8 +4,8 @@ description: >
   Použij při tvorbě jakéhokoli vizuálního výstupu GeekBoy — Remotion kompozice, web,
   aplikace, grafy, miniatury, statická grafika, merch. Kompletní systém — identita,
   loga, barvy, typografie, tvarosloví, pohyb i pravidla rozhodování.
-version: 2.2
-updated: 2026-07-27
+version: 2.3
+updated: 2026-07-28
 font: GeekBoy VF 1.003 · GeekBoy Display ExtraBold
 satelity: [motion.md, icons.md, charts.md]
 ---
@@ -283,12 +283,19 @@ nadpis grafu či statistiky** — a vždy **verzálkami**.
 
 ### Používané řezy
 
-**Regular (400) · Regular Italic (400) · Bold (700) · Bold Italic (700)**, plus
-**GeekBoy Display ExtraBold (800)** na H1.
+**Výchozí sada — s tou začínej:** **Regular (400) · Regular Italic (400) · Bold (700) ·
+Bold Italic (700)**, plus **GeekBoy Display ExtraBold (800)** na hlavní nadpis. Přesně
+tohle doporučuje brand manuál a na drtivou většinu výstupů to stačí.
 
-Variabilní soubor umí celý rozsah 200–900, ale my používáme jen tyhle. Důsledek, se kterým
-je potřeba počítat: **hierarchii pod úrovní H2 nedělej vahou, ale velikostí a barvou** —
-mezistupně jako Medium nebo SemiBold k dispozici nemáme.
+**Ostatní řezy k dispozici jsou a smí se použít.** Medium (500), SemiBold (600),
+ExtraBold (800), Black (900), Light, ExtraLight i jejich kurzívy leží v `assets/fonts/`
+a variabilní soubor pokrývá celý rozsah 200–900. Nejsou zakázané — jsou tam právě proto,
+aby se daly použít, **když je potřeba něco odlišit** a výchozí sada na to nestačí.
+
+Platí ale, že **víc vah ještě nedělá lepší hierarchii**. Drž minimalismus: rozdíl mezi
+úrovněmi řeš přednostně **velikostí a barvou** a po další váze sáhni, až když to jinak
+nejde. Když v jednom výstupu napočítáš čtyři a víc různých vah, skoro jistě to jde
+zjednodušit.
 
 **Náhradní písmo**, když GeekBoy není k dispozici: Arial (Windows), Helvetica nebo
 San Francisco (Mac). Ve sdílených online dokumentech (Google Docs a podobně) používáme
@@ -311,8 +318,6 @@ malé / popisky      ~0,7× – 0,9×   meta, štítky, poznámky
 
 - **Řádkování** je poměr k velikosti: text vzdušný (~1,6), nadpisy sevřené (~1,1–1,25).
   Čím větší písmo, tím menší řádkování.
-- **Tracking** v `em`: velké nadpisy lehce do minusu, verzálkové popisky rozprostři
-  (+0,04 až +0,06 em).
 - **Verzálky** jen na H1 a na drobné značkové popisky — štítky, záhlaví tabulek,
   zdroj citace.
 - **Délka řádku** ≈ 40× velikost základního písma.

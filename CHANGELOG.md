@@ -5,6 +5,34 @@ Historie designového systému GeekBoy. Verze odpovídá poli `version` v hlavi�
 
 ---
 
+## 2.3 — 28. 7. 2026
+
+Vzniklo ze srovnání `design.md` s **brand manuálem od Jirky** (export
+`GeekBoy-brand.md`). Obě změny narovnávají místa, kde systém tvrdil něco, co v manuálu
+není — a v jednom případě něco, co manuálu přímo odporovalo.
+
+**Opraveno**
+
+- **Mezistupňové řezy nejsou zakázané.** Kapitola *Používané řezy* tvrdila, že
+  *„mezistupně jako Medium nebo SemiBold k dispozici nemáme"*. Není to pravda —
+  celá sada 200–900 leží v `assets/fonts/` a je tam záměrně. Nově je rozlišené
+  **výchozí** (Regular 400 / Bold 700 / Display 800 na hlavní nadpis, přesně jak
+  doporučuje manuál) a **dostupné** (všechny ostatní řezy, když je potřeba něco
+  odlišit). Doplněno pravidlo minimalismu: hierarchii řeš přednostně velikostí
+  a barvou, další váha až když to jinak nejde.
+
+**Odebráno**
+
+- **Pravidlo pro tracking.** Bod *„velké nadpisy lehce do minusu, verzálkové popisky
+  +0,04 až +0,06 em"* v manuálu nemá oporu — Jirka o prostrkání nepíše nikde. Navíc
+  se s ním rozcházela praxe (v Remotion šablonách 38 míst přesahovalo horní mez, až
+  k `0,34 em`), takže pravidlo spíš zlobilo, než pomáhalo.
+  > Konkrétní hodnoty trackingu zůstávají na dvou místech, kde nejsou obecným
+  > pravidlem: u **provedení odznaku** (kapitola 9) a v **Příloze A**, která je
+  > výslovně jen popisem webu, ze kterého systém vznikl.
+
+---
+
 ## 2.2 — 27. 7. 2026
 
 Vzniklo z převodu recenze nabíječky na 2.1. Všechny tři změny jsou **zpětné kroky** —
