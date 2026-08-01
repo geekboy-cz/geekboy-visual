@@ -30,7 +30,7 @@ icons.md               sada 253 ikon a mapování veličina → ikona
 charts.md              grafy a datová vizualizace
 CHANGELOG.md           historie verzí systému
 
-assets/fonts/          GeekBoy VF a GeekBoy Display (OTF, WOFF, WOFF2, TTF)
+assets/fonts/          GeekBoy statické řezy, VF a GeekBoy Display (OTF, WOFF, WOFF2, TTF)
 assets/logos/          loga ve všech variantách + tiskové CMYK PDF
 assets/images/         253 ikon a obrázky
 assets/others/         kompletní balíček ikon ke stažení
@@ -42,7 +42,38 @@ to-do/                 co ještě není rozhodnuté nebo dodělané
 
 ## Rychlý start
 
-Variabilní font s deklarovanými rozsahy — **bez nich nefunguje `font-stretch`**:
+Výchozí sada — statické řezy Regular a Bold plus Display na hlavní nadpis:
+
+```css
+@font-face{
+  font-family:"GeekBoy";
+  src:url("assets/fonts/geekboy-regular.woff2") format("woff2");
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"GeekBoy";
+  src:url("assets/fonts/geekboy-bold.woff2") format("woff2");
+  font-weight:700; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"GeekBoy";
+  src:url("assets/fonts/geekboy-italic.woff2") format("woff2");
+  font-weight:400; font-style:italic; font-display:swap;
+}
+@font-face{
+  font-family:"GeekBoy";
+  src:url("assets/fonts/geekboy-bolditalic.woff2") format("woff2");
+  font-weight:700; font-style:italic; font-display:swap;
+}
+@font-face{
+  font-family:"GeekBoy Display";
+  src:url("assets/fonts/geekboydisplay-extrabold.woff2") format("woff2");
+  font-weight:800; font-style:normal; font-display:swap;
+}
+```
+
+**Variabilní font** ber až na motion projekty, kde se váha animuje nebo se roztahuje
+šířka. Rozsahy je nutné deklarovat — **bez nich nefunguje `font-stretch`**:
 
 ```css
 @font-face{
@@ -53,11 +84,6 @@ Variabilní font s deklarovanými rozsahy — **bez nich nefunguje `font-stretch
   font-stretch:80% 120%;
   font-style:normal;
   font-display:swap;
-}
-@font-face{
-  font-family:"GeekBoy Display";
-  src:url("assets/fonts/geekboydisplay-extrabold.woff2") format("woff2");
-  font-weight:800; font-style:normal; font-display:swap;
 }
 ```
 
@@ -110,4 +136,4 @@ nebo cokoli, co by naznačovalo spojení s GeekBoy — vyžaduje **předchozí p
 Systém verzuje `design.md` polem `version` v hlavičce. Podle něj poznáš, jestli je tvoje
 kopie aktuální. Historie změn je v [`CHANGELOG.md`](CHANGELOG.md).
 
-Aktuální verze: **2.0** (26. 7. 2026)
+Aktuální verze: **2.4** (1. 8. 2026)

@@ -4,9 +4,9 @@ description: >
   Použij při tvorbě jakéhokoli vizuálního výstupu GeekBoy — Remotion kompozice, web,
   aplikace, grafy, miniatury, statická grafika, merch. Kompletní systém — identita,
   loga, barvy, typografie, tvarosloví, pohyb i pravidla rozhodování.
-version: 2.3
-updated: 2026-07-28
-font: GeekBoy VF 1.003 · GeekBoy Display ExtraBold
+version: 2.4
+updated: 2026-08-01
+font: GeekBoy 1.003 (statické řezy + VF) · GeekBoy Display ExtraBold
 satelity: [motion.md, icons.md, charts.md]
 ---
 
@@ -297,6 +297,16 @@ Platí ale, že **víc vah ještě nedělá lepší hierarchii**. Drž minimalis
 nejde. Když v jednom výstupu napočítáš čtyři a víc různých vah, skoro jistě to jde
 zjednodušit.
 
+### Statické řezy, nebo variabilní font
+
+**Výchozí volba jsou statické řezy** — Regular 400, Bold 700 a Display 800 na hlavní
+nadpis. Na web, statickou grafiku, grafy i miniatury je to všechno, co potřebuješ.
+
+**Variabilní soubor nasaď tam, kde osu opravdu využiješ** — typicky v motion projektech,
+kde se dá s písmem hrát: animovat váhu, roztahovat a stahovat šířku, plynule přejíždět
+mezi řezy. Kvůli tomuhle VF existuje. Když se ve výstupu mezi řezy nic nehýbe, nepřináší
+nic navíc — sáhni po statice.
+
 **Náhradní písmo**, když GeekBoy není k dispozici: Arial (Windows), Helvetica nebo
 San Francisco (Mac). Ve sdílených online dokumentech (Google Docs a podobně) používáme
 **Hubot Sans**.
@@ -343,9 +353,11 @@ a technických parametrů je to zásadní. Nechávej ji zapnutou.
 
 ### Technikálie variabilního fontu
 
+Až budeš VF nasazovat, tohle jsou místa, kde překvapí.
+
 | Osa | Rozsah | Pozn. |
 |---|---|---|
-| `wght` | 200 → 900 | používáme 400 a 700 |
+| `wght` | 200 → 900 | staticky drž 400 a 700; celý rozsah je pro animaci |
 | `wdth` | 80 → 120 | drž 100; 80 (Condensed) jen jako záměrný akcent |
 | `ital` | 0 → 1 | kurzíva je osa, ne zvláštní soubor |
 
@@ -359,9 +371,9 @@ a technických parametrů je to zásadní. Nechávej ji zapnutou.
 
 ```
 assets/fonts/
-  geekboy-vf.woff2 · geekboy-vf.ttf · geekboy-vf.woff      ← variabilní, výchozí volba
+  geekboy-regular.* · geekboy-bold.* · geekboy-italic.* …   ← statické řezy, výchozí volba
   geekboydisplay-extrabold.woff2 · .otf                     ← Display na H1
-  geekboy-regular.* · geekboy-bold.* · geekboy-italic.* …   ← statické řezy, když VF nejde
+  geekboy-vf.woff2 · geekboy-vf.ttf · geekboy-vf.woff       ← variabilní, na animaci os
 ```
 
 ---

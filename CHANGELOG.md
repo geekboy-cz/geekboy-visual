@@ -5,6 +5,20 @@ Historie designového systému GeekBoy. Verze odpovídá poli `version` v hlavi�
 
 ---
 
+## 2.4 — 1. 8. 2026
+
+**Opraveno**
+
+- **Variabilní font není výchozí volba.** Seznam souborů v kapitole *Písmo* označoval
+  `geekboy-vf.*` za *„variabilní, výchozí volbu"* a statické řezy za náhradu,
+  *„když VF nejde"*. Je to obráceně: ve výchozím stavu sázíme **statické řezy**
+  (Regular 400, Bold 700, Display 800 na hlavní nadpis) a **VF nasazujeme tam, kde
+  se osa reálně využije** — v motion projektech, kde se váha animuje a šířka roztahuje.
+  Přidaná podsekce *Statické řezy, nebo variabilní font* to říká přímo; dosud to
+  z dokumentu šlo vyčíst jen z popisků u seznamu souborů.
+
+---
+
 ## 2.3 — 28. 7. 2026
 
 Vzniklo ze srovnání `design.md` s **brand manuálem od Jirky** (export
