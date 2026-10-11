@@ -111,10 +111,7 @@ Tmavý režim je výchozí. Kompletní palety a sémantické tokeny jsou v `desi
 **Písma** — GeekBoy vychází z Hubot Sans, které je pod **SIL Open Font License 1.1**.
 Odvozené písmo se tou licencí řídí také: smíš ho používat, vkládat do dokumentů a webů
 i upravovat, ale nesmíš ho prodávat samostatně a odvozené verze musí zůstat pod OFL.
-Závazné znění je v licenčním souboru u zdroje písma.
-
-> Licenční soubor OFL zatím není součástí tohohle repozitáře — patří sem doplnit
-> jako `assets/fonts/OFL.txt`.
+Závazné znění je v [`assets/fonts/OFL.txt`](assets/fonts/OFL.txt).
 
 **Dokumentace** v tomhle repu (`design.md`, `motion.md` a další texty) je volně k použití
 pro práci na výstupech GeekBoy.
