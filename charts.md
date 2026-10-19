@@ -120,6 +120,17 @@ verzálkami, pod ním podtitulek `--muted`, pod tím data. Platí pro všechny g
    [ bary ]
 ```
 
+**Velikosti ve videu (4K px) — nic menšího, v malém okně YouTube to nejde přečíst**
+(grafik, 17. 10. 2026; schváleno 19. 10. 2026):
+
+| Prvek | Velikost | Kde |
+|---|---|---|
+| titulek | Display 800, 84–110 | beze změny |
+| podtitulek | **Regular 52** | pod titulkem, na střed |
+| legenda | **Bold 50** (u tabulky 44, nesmí přerůst hodnoty), klíč 34 px | **u horní hrany datové plochy** (~124 px nad horní linkou / prvním barem), na střed — ne hned pod podtitulkem. U souhrnného grafu dál vlevo pod osou. |
+
+Hierarchii dělá řez (Display / Bold / Regular), ne velký rozdíl velikostí.
+
 **Titulek je jméno testu, závěr patří do podtitulku** (kapitola 5). Když má graf „to
 jedno číslo, kvůli kterému tam je", řekni ho v podtitulku nebo v odstavci kolem grafu.
 
